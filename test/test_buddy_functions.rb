@@ -24,6 +24,7 @@ require File.dirname(__FILE__) + '/test_helper'
           assert @kannan.respond_to?(:remove_all_buddies)
           assert @kannan.respond_to?(:add_multiple_buddies)
           assert @kannan.respond_to?(:find_buddies_with)
+          assert @kannan.respond_to?(:find_buddy_with)
           assert @kannan.respond_to?(:find_buddies_like)
           assert @kannan.respond_to?(:is_a_buddy_of?)
         end
@@ -85,10 +86,11 @@ require File.dirname(__FILE__) + '/test_helper'
         
       end
   
-      context "Testing find_buddies_with and find_buddies_like- " do
+      context "Testing find_buddies_with, find_buddy_with and find_buddies_like- " do
         
         should "return buddy name " do
-          assert "sunil", @kannan.find_buddies_with(:name => 'sunil').name
+          assert "sunil", @kannan.find_buddies_with(:name => 'sunil').first.name
+          assert "sunil", @kannan.find_buddy_with(:name => 'sunil').name
           assert "sunil", @kannan.find_buddies_like(:name => 'sun').first.name
         end
         
