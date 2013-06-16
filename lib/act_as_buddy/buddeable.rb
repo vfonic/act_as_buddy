@@ -110,6 +110,15 @@ module ActAsBuddy
         def find_buddies_with(params = {})
           (raise "Argument cannot be blank." and return) if params.empty?
           (raise "Argument needs to be a hash." and return) unless params.is_a?(Hash)
+          self.class.joins(:buddy_mappers).where("buddy_mappers.buddeable_child_id=? AND #{self.class.table_name}.#{params.keys.first.to_s}=?", self.id, params.values.first.to_s)
+        end
+
+=begin
+  This function is used to find the single buddy of a parent by conditions. 
+=end
+        def find_buddy_with(params = {})
+          (raise "Argument cannot be blank." and return) if params.empty?
+          (raise "Argument needs to be a hash." and return) unless params.is_a?(Hash)
           self.class.joins(:buddy_mappers).where("buddy_mappers.buddeable_child_id=? AND #{self.class.table_name}.#{params.keys.first.to_s}=?", self.id, params.values.first.to_s).first
         end
         
